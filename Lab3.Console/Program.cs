@@ -29,3 +29,33 @@ var hashFunction8bits = new HashFunction(8);
 var result8bits = hashFunction8bits.Calculate(wordFile);
 hashFunction8bits.CheckMixing(wordFile);
 Console.WriteLine($"{result8bits}\n\n");
+
+Console.WriteLine("\t\t\t=== 2 BITS (Source Code) ===");
+result2bits = hashFunction2bits.Calculate(sourceCodeFile);
+hashFunction2bits.CheckMixing(sourceCodeFile);
+Console.WriteLine($"{result2bits}\n\n");
+
+Console.WriteLine("\t\t\t=== 4 BITS (Source Code) ===");
+result4bits = hashFunction4bits.Calculate(sourceCodeFile);
+hashFunction4bits.CheckMixing(sourceCodeFile);
+Console.WriteLine($"{result4bits}\n\n");
+
+Console.WriteLine("\t\t\t=== 8 BITS (Source Code) ===");
+result8bits = hashFunction8bits.Calculate(sourceCodeFile);
+hashFunction8bits.CheckMixing(sourceCodeFile);
+Console.WriteLine($"{result8bits}\n\n");
+
+Console.WriteLine("\t\t\t=== 2 BITS (Image) ===");
+result2bits = hashFunction2bits.Calculate(imageFile);
+hashFunction2bits.CheckMixing(imageFile);
+Console.WriteLine($"{result2bits}\n\n");
+
+Console.WriteLine("\t\t\t=== 4 BITS (Image) ===");
+result4bits = hashFunction4bits.Calculate(imageFile);
+hashFunction4bits.CheckMixing(imageFile);
+Console.WriteLine($"{result4bits}\n\n");
+
+Console.WriteLine("\t\t\t=== 8 BITS (Image) ===");
+result8bits = hashFunction8bits.Calculate(imageFile);
+hashFunction8bits.CheckMixing(imageFile);
+Console.WriteLine($"{result8bits}\n\n");
