@@ -8,7 +8,7 @@ namespace Lab3.Hash
 {
     public static class CollisionFinder
     {
-        // TODO: автоматический поиск вариантов сообщения с одинаковыми хеш-строками
+        // TODO: автоматический поиск вариантов сообщения с той же хеш-строкой
         public static List<byte[]> GetMessages(byte[] message, string hashString)
         {
             var messages = new List<byte[]>();
