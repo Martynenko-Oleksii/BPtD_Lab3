@@ -71,10 +71,11 @@ namespace Lab3.Hash
             byte[] updatedmessage = new byte[message.Length];
             message.CopyTo(updatedmessage, 0);
 
+            var loopsCount = 10;
             var random = new Random();
-            for (int i = 0; i < message.Length; i++)
+            for (int i = 0; i < loopsCount; i++)
             {
-                updatedmessage[i] += (byte)random.NextInt64();
+                updatedmessage[i] += (byte)random.NextInt64(0, 256);
 
                 var newHashString = Calculate(updatedmessage);
                 double uniqueBitsCount = 0;
@@ -84,11 +85,13 @@ namespace Lab3.Hash
                 }
                 var stagePercet = Math.Round((uniqueBitsCount / hashString.Length * 100), 1);
 
+                Console.WriteLine($"Unique bits: {stagePercet}%");
+
                 percent += stagePercet;
                 updatedmessage[i] = message[i];
             }
 
-            Console.WriteLine($"Average unique bits: {Math.Round(percent / message.Length, 1)}%");
+            Console.WriteLine($"Average unique bits: {Math.Round(percent / loopsCount, 1)}%");
         }
     }
 }
