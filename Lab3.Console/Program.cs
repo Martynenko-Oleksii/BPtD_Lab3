@@ -15,14 +15,17 @@ var imageFile = await MessageReader.ReadBytes(imageFilePath);
 Console.WriteLine("\t\t\t=== 2 BITS (Word) ===");
 var hashFunction2bits = new HashFunction(2);
 var result2bits = hashFunction2bits.Calculate(wordFile);
+hashFunction2bits.CheckMixing(wordFile);
 Console.WriteLine($"{result2bits}\n\n");
 
 Console.WriteLine("\t\t\t=== 4 BITS (Word) ===");
 var hashFunction4bits = new HashFunction(4);
 var result4bits = hashFunction4bits.Calculate(wordFile);
+hashFunction4bits.CheckMixing(wordFile);
 Console.WriteLine($"{result4bits}\n\n");
 
 Console.WriteLine("\t\t\t=== 8 BITS (Word) ===");
 var hashFunction8bits = new HashFunction(8);
 var result8bits = hashFunction8bits.Calculate(wordFile);
+hashFunction8bits.CheckMixing(wordFile);
 Console.WriteLine($"{result8bits}\n\n");

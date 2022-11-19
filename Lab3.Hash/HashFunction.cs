@@ -29,14 +29,11 @@ namespace Lab3.Hash
 
         private readonly byte _resultSize;
 
-        private string? _hashString = null;
-
         public HashFunction(byte resultSize)
         {
             _resultSize = resultSize;
         }
 
-        // TODO: реализовать хеш-функцию. Возвращает строку битов (примеры: "01", "0101", "10101010")
         public string Calculate(byte[] message)
         {
             var stringBuilder = new StringBuilder();
@@ -60,18 +57,38 @@ namespace Lab3.Hash
 
             foreach (var m in message)
             {
-                hash = Sbox[(byte)(hash ^ m)];
+                hash = Sbox[(byte)(hash ^ m) % Sbox.Length];
             }
 
-            _hashString = Convert.ToString(hash, 2).PadLeft(_resultSize, '0');
-
-            return _hashString;
+            return Convert.ToString(hash, 2).PadLeft(_resultSize, '0');
         }
 
-        // TODO: реализовать подсчет процента уникальности хеш-строки при изменении любого байта
         public void CheckMixing(byte[] message)
         {
+            var hashString = Calculate(message);
 
+            double percent = 0;
+            byte[] updatedmessage = new byte[message.Length];
+            message.CopyTo(updatedmessage, 0);
+
+            for (int i = 0; i < message.Length; i++)
+            {
+                updatedmessage[i] += 13;
+
+                var newHashString = Calculate(updatedmessage);
+                double uniqueBitsCount = 0;
+                for (int j = 0; j < hashString.Length; j++)
+                {
+                    uniqueBitsCount += (hashString[j] != newHashString[j] ? 1 : 0);
+                }
+                var stagePercet = Math.Round((uniqueBitsCount / hashString.Length * 100), 1);
+                Console.WriteLine($"Unique bits: {stagePercet}%");
+
+                percent += stagePercet;
+                updatedmessage[i] = message[i];
+            }
+
+            Console.WriteLine($"Average unique bits: {Math.Round(percent / message.Length, 1)}%");
         }
     }
 }
