@@ -63,7 +63,7 @@ namespace Lab3.Hash
             return Convert.ToString(hash, 2).PadLeft(_resultSize, '0');
         }
 
-        public void CheckMixing(byte[] message)
+        public double CheckMixing(byte[] message)
         {
             var hashString = Calculate(message);
 
@@ -71,7 +71,7 @@ namespace Lab3.Hash
             byte[] updatedmessage = new byte[message.Length];
             message.CopyTo(updatedmessage, 0);
 
-            var loopsCount = 10;
+            var loopsCount = 10000 > message.Length ? message.Length : 10000;
             var random = new Random();
             for (int i = 0; i < loopsCount; i++)
             {
@@ -85,13 +85,13 @@ namespace Lab3.Hash
                 }
                 var stagePercet = Math.Round((uniqueBitsCount / hashString.Length * 100), 1);
 
-                Console.WriteLine($"Unique bits: {stagePercet}%");
+                //Console.WriteLine($"Unique bits: {stagePercet}%");
 
                 percent += stagePercet;
                 updatedmessage[i] = message[i];
             }
 
-            Console.WriteLine($"Average unique bits: {Math.Round(percent / loopsCount, 1)}%");
+            return Math.Round(percent / loopsCount, 1);
         }
     }
 }

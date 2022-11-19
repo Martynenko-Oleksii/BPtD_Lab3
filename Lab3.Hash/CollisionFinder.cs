@@ -8,10 +8,26 @@ namespace Lab3.Hash
 {
     public static class CollisionFinder
     {
-        // TODO: автоматический поиск вариантов сообщения с той же хеш-строкой
-        public static List<byte[]> GetMessages(byte[] message, string hashString)
+        public static List<byte[]> GetMessages(HashFunction function, byte[] message)
         {
             var messages = new List<byte[]>();
+            var originalHashString = function.Calculate(message);
+
+            byte[] updatedMessage = new byte[message.Length + 1];
+            message.CopyTo(updatedMessage, 0);
+
+            for (int i = 0; i <= byte.MaxValue; i++)
+            {
+                var hashCode = Convert.ToByte(originalHashString, 2);
+                updatedMessage[updatedMessage.Length - 1] = (byte)(hashCode ^ i);
+
+                if (function.Calculate(updatedMessage).Equals(originalHashString))
+                {
+                    byte[] messageWithSameHash = new byte[updatedMessage.Length];
+                    updatedMessage.CopyTo(messageWithSameHash, 0);
+                    messages.Add(messageWithSameHash);
+                }
+            }
 
             return messages;
         }
